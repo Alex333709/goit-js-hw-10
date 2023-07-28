@@ -2,12 +2,12 @@ import axios from 'axios';
 
 const API_KEY =
   'live_aZ66IfkATLUF42U83gOdIy65TZx1LZGVptF2Ayq1Qc6N5ChK7nPDqY191LhfguvS';
-
+const BASE_URL = 'https://api.thecatapi.com/v1';
 axios.defaults.headers.common['x-api-key'] = API_KEY;
 
 export function fetchBreeds() {
   return axios
-    .get('https://api.thecatapi.com/v1/breeds')
+    .get(BASE_URL + '/breeds')
     .then(response => response.data)
     .catch(error => {
       console.error('Error fetching breeds:', error);

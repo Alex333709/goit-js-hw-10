@@ -28,7 +28,7 @@ function updateCatInfo(cat) {
     <h3>${cat.breeds[0].name}</h3>
     <p><strong>Description:</strong> ${cat.breeds[0].description}</p>
     <p><strong>Temperament:</strong> ${cat.breeds[0].temperament}</p>
-    <img src="${cat.url}" alt="${cat.breeds[0].name}" width="500" >
+    <img src="${cat.url}" alt="${cat.breeds[0].name}" width="500"  >
   `;
   catInfo.innerHTML = '';
   catInfo.appendChild(catInfoDiv);
