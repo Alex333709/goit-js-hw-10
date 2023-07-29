@@ -59,17 +59,9 @@ function init() {
 
     fetchCatByBreed(breedId)
       .then(cat => {
-        if (cat) {
-          updateCatInfo(cat);
-        } else {
-          // Якщо запит неуспішний або немає даних про кота, очищаємо блок catInfo
-          catInfo.innerHTML = '';
-        }
+        updateCatInfo(cat);
       })
-      .catch(() => {
-        catInfo.innerHTML = ''; // Очистити блок при невдалому запиті
-        showError();
-      })
+      .catch(() => showError())
       .finally(hideLoader);
   });
 }
