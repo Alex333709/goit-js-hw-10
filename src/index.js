@@ -8,7 +8,7 @@ const loader = document.querySelector('.loader');
 const error = document.querySelector('.error');
 const catInfo = document.querySelector('.cat-info');
 
-// q: Функції оновлення інтерфейсу
+// Функції оновлення інтерфейсу
 
 function showLoader() {
   Notiflix.Loading.pulse();
@@ -23,15 +23,16 @@ function showError() {
 }
 
 function updateCatInfo(cat) {
+  catInfo.innerHTML = ''; // Очищити старі дані
+
   const catInfoDiv = document.createElement('div');
   catInfoDiv.innerHTML = `
     <h3>${cat.breeds[0].name}</h3>
     <p><strong>Description:</strong> ${cat.breeds[0].description}</p>
     <p><strong>Temperament:</strong> ${cat.breeds[0].temperament}</p>
-    <img src="${cat.url}" alt="${cat.breeds[0].name}" width="500"  >
+    <img src="${cat.url}" alt="${cat.breeds[0].name}" width="500" >
   `;
-  catInfo.innerHTML = '';
-  catInfo.appendChild(catInfoDiv);
+  catInfo.appendChild(catInfoDiv); // Додати нову інформацію
 }
 
 function init() {
@@ -52,13 +53,23 @@ function init() {
   select.addEventListener('change', e => {
     const breedId = e.target.value;
 
+    catInfo.innerHTML = ''; // Очистити блок перед запитом
+
     showLoader();
 
     fetchCatByBreed(breedId)
       .then(cat => {
-        updateCatInfo(cat);
+        if (cat) {
+          updateCatInfo(cat);
+        } else {
+          // Якщо запит неуспішний або немає даних про кота, очищаємо блок catInfo
+          catInfo.innerHTML = '';
+        }
       })
-      .catch(() => showError())
+      .catch(() => {
+        catInfo.innerHTML = ''; // Очистити блок при невдалому запиті
+        showError();
+      })
       .finally(hideLoader);
   });
 }
